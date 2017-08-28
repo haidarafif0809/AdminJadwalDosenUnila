@@ -1,0 +1,65 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="id.andaglos.jadwaldosenadmin.ruangan.RuanganFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="kode ruangan"
+            android:id="@+id/edtKodeRuangan"
+            android:layout_marginBottom="16dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama ruangan"
+            android:id="@+id/edtNamaRuangan"
+            android:layout_marginBottom="16dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gedung"
+            android:id="@+id/edtGedung"
+            android:layout_marginBottom="16dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Latitude"
+            android:id="@+id/edtLatitudeRuangan"
+            android:layout_marginBottom="16dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Longitude"
+            android:id="@+id/edtLongitudeRuangan"
+            android:layout_marginBottom="16dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Batas Jarak Absen"
+            android:id="@+id/edtBatasjarakAbsen"
+            android:layout_marginBottom="16dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tambah ruangan"
+            android:id="@+id/btnTambahRuangan"
+            android:onClick="prosesTambahRuangan"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LIHAT DATA "
+            android:id="@+id/btnLihatRuangan"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>
