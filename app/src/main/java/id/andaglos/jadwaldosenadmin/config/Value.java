@@ -20,6 +20,7 @@ public class Value {
     public String getMessage() {
         return message;
     }
+
     public List<Result> getResult() {
         return result;
     }

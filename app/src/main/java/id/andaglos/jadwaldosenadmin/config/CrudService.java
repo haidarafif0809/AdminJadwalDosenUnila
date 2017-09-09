@@ -51,4 +51,12 @@ public class CrudService {
         registerApi.list_ruangan().enqueue(callback);
     }
 
+    public void updateRuangan(String id, String kode_ruangan, String nama_ruangan,String gedung,String latitude,String longitude,String batas_jarak, Callback callback){
+        registerApi.updateRuangan(id,kode_ruangan,nama_ruangan,gedung,latitude,longitude,batas_jarak).enqueue(callback);
+    }
+    public void hapusRuangan(String id, Callback callback){
+        registerApi.hapusRuangan(id).enqueue(callback);
+    }
+
+
 }

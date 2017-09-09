@@ -30,4 +30,19 @@ public interface RegisterApi {
     @GET("list_ruangan")
     Call<Value> list_ruangan();
 
+    @FormUrlEncoded
+    @POST("update_ruangan")
+    Call<Value> updateRuangan(@Field("id") String id,
+                              @Field("kode_ruangan") String kode_ruangan,
+                             @Field("nama_ruangan") String nama_ruangan,
+                             @Field("gedung") String gedung,
+                             @Field("latitude") String latitude,
+                             @Field("longitude") String longitude,
+                             @Field("batas_jarak") String batas_jarak
+    );
+
+    @FormUrlEncoded
+    @POST("hapus_ruangan")
+    Call<Value> hapusRuangan(@Field("id") String id);
+
 }

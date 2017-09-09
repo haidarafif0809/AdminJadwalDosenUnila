@@ -11,6 +11,10 @@ public class Result {
     String kode_ruangan;
     String nama_ruangan;
     String lokasi_ruangan;
+    String latitude;
+    String longitude;
+    String batas_jarak_absen;
+    String id;
 
     public String getUsername() {
         return username;
@@ -29,5 +33,17 @@ public class Result {
     }
     public String getGedung(){
         return lokasi_ruangan;
+    }
+    public String getLatitude() {
+        return latitude;
+    }
+    public String getLongitude(){
+        return longitude;
+    }
+    public String getBatasJarak(){
+        return batas_jarak_absen;
+    }
+    public String getId(){
+        return id;
     }
 }

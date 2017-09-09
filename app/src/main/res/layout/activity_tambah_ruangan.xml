@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="id.andaglos.jadwaldosenadmin.ruangan.TambahRuangan"
+    android:weightSum="1">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kode Ruangan"
+            android:id="@+id/edtKodeRuangan"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama ruangan"
+            android:id="@+id/edtNamaRuangan"
+            android:layout_marginBottom="10dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gedung"
+            android:id="@+id/edtGedung"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/edtLatitudeRuangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Latitude" />
+
+        <EditText
+            android:id="@+id/edtLongitudeRuangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Longitude" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Batas Jarak Absen"
+            android:id="@+id/edtBatasjarakAbsen"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dapatkan Lokasi"
+            android:id="@+id/btnLokasi"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tambah ruangan"
+            android:id="@+id/btnTambahRuangan"
+            android:onClick="prosesTambahRuangan"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="lihat data "
+            android:id="@+id/btnLihatRuangan"/>
+
+
+
+</LinearLayout>
