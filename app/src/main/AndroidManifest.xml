@@ -24,7 +24,9 @@
             android:name=".UtamaActivity"
             android:label="@string/title_activity_utama"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ruangan.ListRuangan"></activity>
+        <activity android:name=".ruangan.ListRuangan">
+
+        </activity>
         <activity android:name=".ruangan.TambahRuangan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

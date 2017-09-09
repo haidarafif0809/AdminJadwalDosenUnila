@@ -82,7 +82,7 @@ public class TambahRuangan extends AppCompatActivity implements GoogleApiClient.
 
             @Override
             public void onClick(View v) {
-                displayLocation();
+                lihatRuangan();
             }
         });
 

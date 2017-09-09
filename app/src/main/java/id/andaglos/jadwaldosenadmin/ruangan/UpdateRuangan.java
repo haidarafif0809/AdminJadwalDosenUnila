@@ -3,9 +3,13 @@ package id.andaglos.jadwaldosenadmin.ruangan;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,22 +17,46 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
 import butterknife.ButterKnife;
+import id.andaglos.jadwaldosenadmin.MainActivity;
 import id.andaglos.jadwaldosenadmin.R;
 import id.andaglos.jadwaldosenadmin.config.CrudService;
 import id.andaglos.jadwaldosenadmin.config.Value;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class UpdateRuangan extends AppCompatActivity {
+public class UpdateRuangan extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private ProgressDialog progress;
+    // LogCat tag
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
+
+    private Location mLastLocation;
+
+    // Google client to interact with Google API
+    private GoogleApiClient mGoogleApiClient;
+
+    // boolean flag to toggle periodic location updates
+    private boolean mRequestingLocationUpdates = false;
+
+    private LocationRequest mLocationRequest;
+
+    // Location updates intervals in sec
+    private static int UPDATE_INTERVAL = 10000; // 10 sec
+    private static int FATEST_INTERVAL = 5000; // 5 sec
+    private static int DISPLACEMENT = 10; // 10 meters
 
     EditText edtKodeRuangan,edtNamaRuangan,edtGedung,edtLatitudeRuangan,edtLongitudeRuangan,edtBatasJarakAbsen;
-    Button btnUpdate;
+    Button btnUpdate, btnEditLokasi;
 
     String id;
 
@@ -97,6 +125,7 @@ public class UpdateRuangan extends AppCompatActivity {
         edtLatitudeRuangan = (EditText) findViewById(R.id.edtTextLatitudeRuangan);
         edtLongitudeRuangan = (EditText) findViewById(R.id.edtTextLongitudeRuangan);
         edtBatasJarakAbsen = (EditText) findViewById(R.id.edtTextBatasjarakAbsen);
+        btnEditLokasi = (Button) findViewById(R.id.btnEditLokasi);
 
         edtKodeRuangan.setText(kode_ruangan);
         edtNamaRuangan.setText(nama_ruangan);
@@ -108,7 +137,24 @@ public class UpdateRuangan extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                prosesUpdateRuangan();
+                if (vaidate_form() == true) {
+                    prosesUpdateRuangan();
+                }
+            }
+        });
+
+        // First we need to check availability of play services
+        if (checkPlayServices()) {
+            // Building the GoogleApi client
+            buildGoogleApiClient();
+        }
+
+        // Show location button click listener
+        btnEditLokasi.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                tampilLokasi();
             }
         });
 
@@ -168,10 +214,152 @@ public class UpdateRuangan extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method to display the location on UI
+     * */
+    private void tampilLokasi() {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if (mLastLocation != null) {
+            double latitude = mLastLocation.getLatitude();
+            double longitude = mLastLocation.getLongitude();
+
+            edtLatitudeRuangan.setText(String.valueOf(latitude));
+            edtLongitudeRuangan.setText(String.valueOf(longitude));
+
+        } else {
+
+            Toast.makeText(UpdateRuangan.this, "Couldn't get the location. Make sure location is enabled on the device!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Creating google api client object
+     * */
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API).build();
+    }
+
+    /**
+     * VERIFIKASI KE GOOGLE PLAY SERVICES
+     * */
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "This device is not supported.", Toast.LENGTH_LONG)
+                        .show();
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkPlayServices();
+    }
+
+    /**
+     * Google api callback methods
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = "
+                + result.getErrorCode());
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+
+        // Once connected with google api, get the location
+        tampilLokasi();
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+        mGoogleApiClient.connect();
+    }
+
+    //JIKA KOLOM TIDAK DIISI KETIKA DIEDIT
+    private boolean vaidate_form(){
+
+        if (edtKodeRuangan.getText().toString().equals("")){
+
+            edtKodeRuangan.setError("Silahkan Isi Kode Ruangan !");
+            edtKodeRuangan.requestFocus();
+
+            return false;
+        }
+        else if (edtNamaRuangan.getText().toString().equals("")){
+
+            edtNamaRuangan.setError("Silahkan Isi Nama Ruangan !");
+            edtNamaRuangan.requestFocus();
+
+            return false;
+        }
+        else if (edtGedung.getText().toString().equals("")){
+
+            edtGedung.setError("Silahkan Isi Gedung !");
+            edtGedung.requestFocus();
+
+            return false;
+        }
+        else if (edtLatitudeRuangan.getText().toString().equals("")){
+
+            edtLatitudeRuangan.setError("Silahkan Isi Latitude !");
+            edtLatitudeRuangan.requestFocus();
+
+            return false;
+        }
+        else if (edtLongitudeRuangan.getText().toString().equals("")){
+
+            edtLongitudeRuangan.setError("Silahkan Isi Logitude !");
+            edtLongitudeRuangan.requestFocus();
+
+            return false;
+        }
+        else if (edtBatasJarakAbsen.getText().toString().equals("")){
+
+            edtBatasJarakAbsen.setError("Silahkan Isi Batas Jarak Absen !");
+            edtBatasJarakAbsen.requestFocus();
+
+            return false;
+        }
+        else{
+
+            return  true;
+        }
+
+    }
+
+    //MENAMPILKAN TOMBOL HAPUS
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_delete, menu);
         return true;
     }
-
 }

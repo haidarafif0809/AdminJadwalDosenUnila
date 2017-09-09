@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:hint="Longitude"
             android:id="@+id/edtTextLongitudeRuangan"
+            android:inputType="number"
             android:layout_marginBottom="10dp"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -86,6 +87,7 @@
             android:layout_height="wrap_content"
             android:hint="Batas Jarak Absen"
             android:id="@+id/edtTextBatasjarakAbsen"
+            android:inputType="number"
             android:layout_marginBottom="10dp"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -94,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dapatkan Lokasi"
-            android:id="@+id/btnLokasi"/>
+            android:id="@+id/btnEditLokasi"/>
 
         <Button
             android:id="@+id/btnUpdate"
