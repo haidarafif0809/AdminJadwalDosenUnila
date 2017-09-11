@@ -219,6 +219,10 @@ public class UpdateRuangan extends AppCompatActivity implements GoogleApiClient.
      * */
     private void tampilLokasi() {
 
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -229,6 +233,7 @@ public class UpdateRuangan extends AppCompatActivity implements GoogleApiClient.
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         if (mLastLocation != null) {
@@ -252,6 +257,7 @@ public class UpdateRuangan extends AppCompatActivity implements GoogleApiClient.
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API).build();
+
     }
 
     /**
@@ -274,6 +280,7 @@ public class UpdateRuangan extends AppCompatActivity implements GoogleApiClient.
         }
         return true;
     }
+
 
 
     @Override
