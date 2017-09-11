@@ -7,6 +7,6 @@ package id.andaglos.jadwaldosenadmin.config;
 public class Config {
 
 
-    public static final String BASE_URL = "http://aac1945.com/jadwal-dosen/public/";
+    public static final String BASE_URL = "http://http://akademikfkunila.com/";
 
 }
