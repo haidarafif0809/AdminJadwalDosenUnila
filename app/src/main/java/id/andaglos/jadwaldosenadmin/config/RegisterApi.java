@@ -45,4 +45,8 @@ public interface RegisterApi {
     @POST("hapus_ruangan")
     Call<Value> hapusRuangan(@Field("id") String id);
 
+    @FormUrlEncoded
+    @POST("cari_ruangan")
+    Call<Value> cari_ruangan(@Field("search") String search);
+
 }

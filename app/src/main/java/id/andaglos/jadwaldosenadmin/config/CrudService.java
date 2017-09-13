@@ -57,6 +57,8 @@ public class CrudService {
     public void hapusRuangan(String id, Callback callback){
         registerApi.hapusRuangan(id).enqueue(callback);
     }
-
+    public void cari_ruangan(String search, Callback callback){
+        registerApi.cari_ruangan(search).enqueue(callback);
+    }
 
 }

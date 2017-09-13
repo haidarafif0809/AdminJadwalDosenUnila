@@ -1,10 +1,10 @@
 package id.andaglos.jadwaldosenadmin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,8 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import id.andaglos.jadwaldosenadmin.ruangan.RuanganFragment;
+import id.andaglos.jadwaldosenadmin.ruangan.TambahRuangan;
 
 public class UtamaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,11 +84,9 @@ public class UtamaActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_ruangan) {
-            // Handle the camera action
-            RuanganFragment rr = new RuanganFragment();
-            rr.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.container,rr,"Ruangan").commit();
-            getSupportFragmentManager().popBackStack();
+
+                startActivity(new Intent(UtamaActivity.this, TambahRuangan.class));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

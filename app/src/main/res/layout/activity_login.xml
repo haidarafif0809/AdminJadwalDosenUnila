@@ -1,30 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:fitsSystemWindows="true"
+android:background="@drawable/background2">
+
+<LinearLayout
     android:orientation="vertical"
-    tools:context="id.andaglos.jadwaldosenadmin.LoginActivity">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="username"
-        android:id="@+id/edtUsername"
-        android:layout_marginBottom="16dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="password"
-        android:id="@+id/edtPassword"
-        android:layout_marginBottom="16dp"
-        android:inputType="textPassword"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="56dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp">
+
+
+    <ImageView
+        android:src="@drawable/logofinish"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="40dp"
+        android:layout_gravity="center_horizontal"
         />
-    <Button
+
+    <TextView
+        android:id="@+id/text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Jadwal Dosen"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@android:color/primary_text_dark"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="30sp"
+        android:fontFamily="arial"
+        android:textStyle="bold"
+        />
+
+    <EditText android:id="@+id/edtUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOGIN"
+        android:drawableLeft="@mipmap/user_login"
+        android:hint="Username"
+        android:textColorHint="#f5f2f2"
+        android:textColor="#fff"/>
+
+
+    <EditText android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/password_login"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:textColorHint="#fff"
+        android:textColor="#fff"/>
+
+    <Button
+        android:id="@+id/btnLogin"
         android:onClick="prosesLogin"
-        android:id="@+id/btnLogin"/>
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:background="#5a98d3"
+        android:textColor="@android:color/white"
+        android:text="Login"/>
+
+
 </LinearLayout>
+</ScrollView>
+

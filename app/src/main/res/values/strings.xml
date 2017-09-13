@@ -1,14 +1,9 @@
 <resources>
-    <string name="app_name">Jadwal Dosen Admin</string>
-    <string name="title_activity_utama">UtamaActivity</string>
-
+    <string name="app_name">Jadwal Dosen </string>
+    <string name="title_activity_utama">Jadwal Dosen</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="view">Lihat Data</string>
 </resources>
